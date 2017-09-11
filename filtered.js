@@ -8,17 +8,26 @@ fs.readdir(filePath, 'utf8', (err, data) => {
   if (err) {
     throw err
   }
-  // console.log("data is: ", data);
-  // console.log("ext is: ", `.${ext}`);
 
   let filtered = data.forEach((el) => {
     if (path.extname(el) === `.${ext}`) {
       console.log(el);
     }
-
-    // console.log("filteredData: ", filtered);
   })
-
-  // let result = path.extname(data[0])
-  // console.log("extname result: ", result);
 })
+
+
+// const fs = require('fs')
+//     const path = require('path')
+//
+//     const folder = process.argv[2]
+//     const ext = '.' + process.argv[3]
+//
+//     fs.readdir(folder, function (err, files) {
+//       if (err) return console.error(err)
+//       files.forEach(function (file) {
+//         if (path.extname(file) === ext) {
+//           console.log(file)
+//         }
+//       })
+//     })
