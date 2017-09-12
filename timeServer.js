@@ -22,7 +22,7 @@ let server = net.createServer((socket) => {
 
   let currentDate = `${year}-${monthAdj}-${dayAdj} ${hoursAdj}:${minutesAdj}`
 
-  socket.write(currentDate)
+  socket.write(currentDate + '\n')
   socket.end()
 })
 
