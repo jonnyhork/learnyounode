@@ -1,12 +1,31 @@
-let myModule = require('./moduleFn')
+// const myModule = require('./moduleFn')
+// const filePath = process.argv[2]
+// const ext = process.argv[3]
+//
+// myModule(filePath, ext, (err, data) => {
+//   if (err) {
+//     throw err
+//   }
+//
+//   data.forEach((el) => {
+//     console.log(el)
+//   })
+// })
 
-function filter(err, data) {
+
+
+
+
+
+
+const filterFunction = require('./moduleFn')
+const dir = process.argv[2]
+const ext = process.argv[3]
+
+filterFunction(dir, ext, (err, files) => {
   if (err) {
     throw err
-  } else {
-    myModule(data)
   }
+  files.forEach((file) => console.log(file))
 
-}
-
-// console.log(filter())
+})
