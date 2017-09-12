@@ -1,54 +1,64 @@
 const http = require('http')
 const bl = require('bl')
-const urls = [process.argv[2], process.argv[3], process.argv[4]]
 
 let responses = []
 let completeReq = 0
 
-for (let url of urls) {
 
-  http.get(url, (res) => {
+let getHttpRes = (idx) => {
+  // console.log(idx);
+  // console.log("PROCESS:", process.argv[2]);
+  http.get(process.argv[2 + idx], (res) => {
 
     res.pipe(bl((err, data) => {
-      responses.push(data.toString())
+      responses[idx] = data.toString()
       completeReq++
-      // console.log(`${completeReq} \n\n`)
-      // console.log(data.toString())
-      // console.log("\n\nRESPONSES = ", responses);
-      if (completeReq === urls.length) {
-        responses.forEach((el) => console.log(el))
+      if (completeReq === 3) {
+        responses.forEach(response => console.log(response))
       }
+
     }))
-
   })
+}
 
-
+for (let i = 0; i < 3; i++) {
+  getHttpRes(i)
 }
 
 
+// POSSIBLE SOLUTION
 
-// // http.get(url1, (res1) => {
-// res1.pipe(bl((err, data1) => {
-// if (err) {
-//   throw err
-// }
-// console.log(data1.toString())
-// }))
-// })
+/*
+const http = require('http')
+    const bl = require('bl')
+    const results = []
+    let count = 0
 
+    function printResults () {
+      for (let i = 0; i < 3; i++) {
+        console.log(results[i])
+      }
+    }
 
+    function httpGet (index) {
+      http.get(process.argv[2 + index], function (response) {
+        response.pipe(bl(function (err, data) {
+          if (err) {
+            return console.error(err)
+          }
 
+          results[index] = data.toString()
+          count++
 
+          if (count === 3) {
+            printResults()
+          }
+        }))
+      })
+    }
 
+    for (let i = 0; i < 3; i++) {
+      httpGet(i)
+    }
 
-
-
-
-// http.get(url1, (res1) => {
-//   res1.pipe(bl((err, data1) => {
-//     if (err) {
-//       throw err
-//     }
-//     console.log(data1.toString())
-//   }))
-// })
+*/
